@@ -14,6 +14,16 @@ document.querySelectorAll("select").forEach((select) => {
 });
 
 const amountInput = document.querySelector("#amount");
+const operationDateInput = document.querySelector("#operation-date");
+
+function localIsoDate(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+operationDateInput.value = localIsoDate();
 
 amountInput.addEventListener("input", () => {
   const raw = amountInput.value.replace(/\s/g, "").replace(/[^\d,.]/g, "");
@@ -30,6 +40,7 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
 
   const amountText = document.querySelector("#amount").value.replace(",", ".").replace(/\s/g, "");
   const amount = Number(amountText);
+  const operationDate = operationDateInput.value;
   const description = document.querySelector("#description").value.trim();
   const paymentMethod = document.querySelector("#payment-method").value;
   const category = document.querySelector("#category").value;
@@ -38,6 +49,7 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
 
   let message = "";
   if (!Number.isFinite(amount) || amount <= 0) message = "Укажите сумму расхода";
+  else if (!operationDate) message = "Выберите дату расхода";
   else if (!description) message = "Введите описание";
   else if (!paymentMethod) message = "Выберите способ оплаты";
   else if (!category) message = "Выберите категорию";
@@ -52,6 +64,7 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
   const payload = JSON.stringify({
     type: "manual_expense",
     amount,
+    date: operationDate,
     currency: document.querySelector("#currency").value,
     description,
     payment_method: paymentMethod,
