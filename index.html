@@ -22,8 +22,14 @@
           <label class="row">
             <span class="row-label">Сумма</span>
             <span class="row-control amount-control">
-              <input id="amount" inputmode="decimal" autocomplete="off" placeholder="0,00" />
-              <span>₸</span>
+              <input id="amount" inputmode="decimal" autocomplete="off" placeholder="0" />
+              <select id="currency" aria-label="Валюта">
+                <option value="KZT" selected>₸</option>
+                <option value="USD">$</option>
+                <option value="EUR">€</option>
+                <option value="RUB">₽</option>
+                <option value="CNY">¥</option>
+              </select>
             </span>
             <span class="chevron">›</span>
           </label>

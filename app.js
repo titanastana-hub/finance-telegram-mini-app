@@ -13,6 +13,18 @@ document.querySelectorAll("select").forEach((select) => {
   });
 });
 
+const amountInput = document.querySelector("#amount");
+
+amountInput.addEventListener("input", () => {
+  const raw = amountInput.value.replace(/\s/g, "").replace(/[^\d,.]/g, "");
+  const separatorIndex = raw.search(/[,.]/);
+  const integerRaw = separatorIndex === -1 ? raw : raw.slice(0, separatorIndex);
+  const fractionRaw = separatorIndex === -1 ? "" : raw.slice(separatorIndex + 1).replace(/[,.]/g, "").slice(0, 2);
+  const integer = integerRaw.replace(/^0+(?=\d)/, "");
+  const grouped = integer.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  amountInput.value = grouped + (separatorIndex === -1 ? "" : `,${fractionRaw}`);
+});
+
 document.querySelector("#expense-form").addEventListener("submit", (event) => {
   event.preventDefault();
 
@@ -40,6 +52,7 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
   const payload = JSON.stringify({
     type: "manual_expense",
     amount,
+    currency: document.querySelector("#currency").value,
     description,
     payment_method: paymentMethod,
     category,
