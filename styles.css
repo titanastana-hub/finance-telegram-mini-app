@@ -91,6 +91,14 @@ button { -webkit-tap-highlight-color: transparent; }
   font-weight: 400;
   text-align: right;
 }
+.row input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.row input[type="date"]::-webkit-calendar-picker-indicator {
+  margin: 0;
+  opacity: .45;
+}
 .row select {
   cursor: pointer;
   appearance: none;
@@ -165,7 +173,7 @@ button { -webkit-tap-highlight-color: transparent; }
 @media (max-height: 760px) {
   .header { height: 64px; }
   #expense-form { min-height: calc(100dvh - 64px); }
-  .row { min-height: 54px; }
+  .row { min-height: 50px; }
   .submit-area { padding-block: 10px max(12px, env(safe-area-inset-bottom)); }
   .save-button { min-height: 48px; }
 }
