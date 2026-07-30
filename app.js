@@ -2,19 +2,14 @@ const telegram = window.Telegram?.WebApp;
 telegram?.ready();
 telegram?.expand();
 
-const selections = {
-  payment_method: "Наличные",
-  purpose: "Личное",
-};
+document.querySelector("#back-button").addEventListener("click", () => {
+  if (telegram) telegram.close();
+  else window.history.back();
+});
 
-document.querySelectorAll(".segments").forEach((group) => {
-  group.addEventListener("click", (event) => {
-    const button = event.target.closest("button[data-value]");
-    if (!button) return;
-
-    group.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-    selections[group.dataset.group] = button.dataset.value;
+document.querySelectorAll("select").forEach((select) => {
+  select.addEventListener("change", () => {
+    select.style.color = "var(--ink)";
   });
 });
 
@@ -24,15 +19,20 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
   const amountText = document.querySelector("#amount").value.replace(",", ".").replace(/\s/g, "");
   const amount = Number(amountText);
   const description = document.querySelector("#description").value.trim();
+  const paymentMethod = document.querySelector("#payment-method").value;
+  const category = document.querySelector("#category").value;
+  const purpose = document.querySelector("#purpose").value;
   const error = document.querySelector("#error");
 
-  if (!Number.isFinite(amount) || amount <= 0) {
-    error.textContent = "Укажите сумму расхода";
-    error.hidden = false;
-    return;
-  }
-  if (!description) {
-    error.textContent = "Добавьте описание";
+  let message = "";
+  if (!Number.isFinite(amount) || amount <= 0) message = "Укажите сумму расхода";
+  else if (!description) message = "Введите описание";
+  else if (!paymentMethod) message = "Выберите способ оплаты";
+  else if (!category) message = "Выберите категорию";
+  else if (!purpose) message = "Выберите назначение";
+
+  if (message) {
+    error.textContent = message;
     error.hidden = false;
     return;
   }
@@ -41,9 +41,9 @@ document.querySelector("#expense-form").addEventListener("submit", (event) => {
     type: "manual_expense",
     amount,
     description,
-    payment_method: selections.payment_method,
-    category: document.querySelector("#category").value,
-    purpose: selections.purpose,
+    payment_method: paymentMethod,
+    category,
+    purpose,
     comment: document.querySelector("#comment").value.trim(),
     submitted_at: new Date().toISOString(),
   });
