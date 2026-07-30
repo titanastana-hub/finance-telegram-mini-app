@@ -1,0 +1,98 @@
+:root {
+  --ink: #102a43;
+  --muted: #6b7f92;
+  --blue: #1f4e78;
+  --blue-bright: #2f80c9;
+  --line: #dce7ef;
+  --background: #f3f7fa;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--background); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, rgba(47, 128, 201, .13), transparent 280px), var(--background);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+
+.shell {
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: max(24px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
+}
+.topbar { display: flex; align-items: center; gap: 13px; margin: 4px 2px 22px; }
+.brand-mark {
+  display: grid; width: 47px; height: 47px; place-items: center; border-radius: 15px;
+  background: linear-gradient(145deg, var(--blue), var(--blue-bright));
+  box-shadow: 0 8px 22px rgba(31, 78, 120, .24); color: white; font-size: 23px; font-weight: 750;
+}
+.eyebrow { margin: 0 0 2px; color: var(--blue-bright); font-size: 11px; font-weight: 800; letter-spacing: .12em; }
+h1 { margin: 0; font-size: 25px; line-height: 1.1; letter-spacing: -.02em; }
+.expense-form { display: grid; gap: 14px; }
+.amount-card, .form-card, .success-card {
+  border: 1px solid rgba(220, 231, 239, .9); border-radius: 22px;
+  background: rgba(255, 255, 255, .94); box-shadow: 0 14px 40px rgba(30, 71, 105, .08);
+}
+.amount-card { padding: 20px 22px 18px; }
+.amount-card > label, .field > span, .field > legend {
+  display: block; margin-bottom: 8px; padding: 0; color: var(--muted); font-size: 13px; font-weight: 700;
+}
+.amount-row { display: flex; align-items: center; }
+.amount-row input {
+  min-width: 0; flex: 1; border: 0; outline: 0; background: transparent;
+  color: var(--ink); font-size: 42px; font-weight: 750; letter-spacing: -.04em;
+}
+.amount-row input::placeholder { color: #b7c6d2; }
+.amount-row span { color: var(--blue); font-size: 28px; font-weight: 750; }
+.form-card { display: grid; gap: 20px; padding: 21px; }
+.field { display: block; margin: 0; padding: 0; border: 0; }
+.field em { color: #9aabba; font-size: 11px; font-style: normal; font-weight: 500; }
+.field input, .field select, .field textarea {
+  width: 100%; border: 1px solid var(--line); border-radius: 13px; outline: 0;
+  background: #f8fbfd; color: var(--ink); transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.field input, .field select { height: 48px; padding: 0 14px; }
+.field textarea { resize: vertical; padding: 13px 14px; line-height: 1.45; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--blue-bright); box-shadow: 0 0 0 3px rgba(47, 128, 201, .12);
+}
+.field input::placeholder, .field textarea::placeholder { color: #a7b5c1; }
+.segments { display: grid; gap: 7px; padding: 4px; border-radius: 14px; background: #eef4f8; }
+.segments.two { grid-template-columns: repeat(2, 1fr); }
+.segments.three { grid-template-columns: repeat(3, 1fr); }
+.segments button {
+  min-height: 40px; border: 0; border-radius: 10px; background: transparent;
+  color: var(--muted); cursor: pointer; font-size: 14px; font-weight: 700;
+}
+.segments button.active {
+  background: white; box-shadow: 0 3px 10px rgba(31, 78, 120, .12); color: var(--blue);
+}
+.primary-button {
+  width: 100%; min-height: 53px; border: 0; border-radius: 15px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-bright));
+  box-shadow: 0 10px 24px rgba(31, 78, 120, .24); color: white; cursor: pointer; font-size: 16px; font-weight: 800;
+}
+.primary-button:active { transform: translateY(1px); }
+.submit-button { margin-top: 2px; }
+.privacy-note { margin: -3px 0 0; color: #8b9dad; font-size: 11px; text-align: center; }
+.error-message {
+  margin: 0; border-radius: 12px; background: #fff0f0; padding: 11px 14px;
+  color: #b63838; font-size: 13px; font-weight: 650; text-align: center;
+}
+.success-card { margin-top: 22px; padding: 32px 24px; text-align: center; }
+.success-card p { margin: 10px 0 0; color: var(--muted); line-height: 1.5; }
+.success-icon {
+  display: grid; width: 62px; height: 62px; margin: 0 auto 18px; place-items: center;
+  border-radius: 50%; background: #e3f6eb; color: #278455; font-size: 30px; font-weight: 800;
+}
+@media (max-width: 370px) {
+  .shell { padding-inline: 12px; }
+  .form-card { padding: 17px; }
+  .segments button { font-size: 13px; }
+}
