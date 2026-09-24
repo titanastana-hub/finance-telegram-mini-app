@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#ffffff" />
     <title>Новый расход</title>
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=11" />
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="app.js?v=9" defer></script>
+    <script src="app.js?v=11" defer></script>
   </head>
   <body>
     <main class="app">
       <header class="header">
         <button class="back-button" id="back-button" type="button" aria-label="Закрыть">‹</button>
-        <h1>Новый расход</h1>
+        <h1 id="form-title">Новый расход</h1>
         <span class="header-spacer" aria-hidden="true"></span>
       </header>
 
@@ -27,7 +27,7 @@
             <span class="chevron">›</span>
           </label>
 
-          <label class="row">
+          <label class="row" data-expense-only>
             <span class="row-label">Валюта</span>
             <select id="currency" aria-label="Валюта">
               <option value="KZT" selected>Тенге ₸</option>
@@ -41,17 +41,17 @@
 
           <label class="row">
             <span class="row-label">Дата</span>
-            <input id="operation-date" class="row-input" type="date" aria-label="Дата расхода" />
+            <input id="operation-date" class="row-input" type="date" aria-label="Дата" />
             <span class="chevron">›</span>
           </label>
 
-          <label class="row">
+          <label class="row" data-expense-only>
             <span class="row-label">Описание</span>
             <input id="description" class="row-input" type="text" placeholder="Введите описание" />
             <span class="chevron">›</span>
           </label>
 
-          <label class="row">
+          <label class="row" data-expense-only>
             <span class="row-label">Способ оплаты</span>
             <select id="payment-method">
               <option value="" selected disabled>Выберите способ</option>
@@ -61,7 +61,7 @@
             <span class="chevron">›</span>
           </label>
 
-          <label class="row">
+          <label class="row" data-expense-only>
             <span class="row-label">Категория</span>
             <select id="category">
               <option value="" selected disabled>Выберите категорию</option>
@@ -77,7 +77,7 @@
             <span class="chevron">›</span>
           </label>
 
-          <label class="row">
+          <label class="row" data-expense-only>
             <span class="row-label">Назначение</span>
             <select id="purpose">
               <option value="" selected disabled>Выберите назначение</option>
@@ -90,20 +90,20 @@
 
           <label class="row">
             <span class="row-label">Комментарий</span>
-            <input id="comment" class="row-input" type="text" placeholder="Введите комментарий" />
+            <input id="comment" class="row-input" type="text" placeholder="Введите комментарий" maxlength="1000" />
             <span class="chevron">›</span>
           </label>
         </section>
 
         <p class="error-message" id="error" hidden></p>
         <div class="submit-area">
-          <button class="save-button" type="submit">Сохранить</button>
+          <button class="save-button" type="submit" id="save-button">Сохранить</button>
         </div>
       </form>
 
       <section class="success" id="success" hidden>
         <div class="success-icon">✓</div>
-        <h2>Расход отправлен</h2>
+        <h2 id="success-title">Расход отправлен</h2>
       </section>
     </main>
   </body>
