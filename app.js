@@ -5,6 +5,9 @@ telegram?.expand();
 const form = document.querySelector("#expense-form");
 const saveButton = document.querySelector("#save-button");
 const isTransfer = new URLSearchParams(window.location.search).get("mode") === "transfer";
+const clientOperationId = crypto.randomUUID
+  ? crypto.randomUUID()
+  : Array.from(crypto.getRandomValues(new Uint8Array(16)), (value) => value.toString(16).padStart(2, "0")).join("");
 
 if (!isTransfer) {
   document.title = "Добавить операцию";
@@ -84,6 +87,7 @@ form.addEventListener("submit", (event) => {
   const payload = JSON.stringify(isTransfer
     ? {
         type: "manual_transfer",
+        client_operation_id: clientOperationId,
         amount,
         date: operationDate,
         currency: "KZT",
@@ -92,6 +96,7 @@ form.addEventListener("submit", (event) => {
       }
     : {
         type: "manual_expense",
+        client_operation_id: clientOperationId,
         amount,
         date: operationDate,
         currency: document.querySelector("#currency").value,
