@@ -6,10 +6,16 @@ const form = document.querySelector("#expense-form");
 const saveButton = document.querySelector("#save-button");
 const isTransfer = new URLSearchParams(window.location.search).get("mode") === "transfer";
 
+if (!isTransfer) {
+  document.title = "Добавить операцию";
+  document.querySelector("#form-title").textContent = "Добавить операцию";
+  document.querySelector("#success-title").textContent = "Операция сохранена";
+}
+
 if (isTransfer) {
-  document.title = "Новый перевод";
-  document.querySelector("#form-title").textContent = "Новый перевод";
-  document.querySelector("#success-title").textContent = "Перевод отправлен";
+  document.title = "Добавить операцию (черновик)";
+  document.querySelector("#form-title").textContent = "Добавить операцию (черновик)";
+  document.querySelector("#success-title").textContent = "Черновая операция сохранена";
   document.querySelectorAll("[data-expense-only]").forEach((row) => {
     row.hidden = true;
   });
@@ -62,7 +68,7 @@ form.addEventListener("submit", (event) => {
   const error = document.querySelector("#error");
 
   let message = "";
-  if (!Number.isFinite(amount) || amount <= 0) message = isTransfer ? "Укажите сумму перевода" : "Укажите сумму расхода";
+  if (!Number.isFinite(amount) || amount <= 0) message = isTransfer ? "Укажите сумму операции" : "Укажите сумму операции";
   else if (!operationDate) message = "Выберите дату";
   else if (!isTransfer && !description) message = "Введите описание";
   else if (!isTransfer && !paymentMethod) message = "Выберите способ оплаты";
@@ -111,8 +117,8 @@ form.addEventListener("submit", (event) => {
       saveButton.disabled = false;
       saveButton.textContent = "Сохранить";
       error.textContent = isTransfer
-        ? "Откройте форму кнопкой «➕ Добавить перевод» внутри чата с ботом."
-        : "Откройте форму кнопкой «➕ Добавить расход» внутри чата с ботом.";
+        ? "Откройте форму кнопкой «➕ Добавить операцию (черновик)» внутри чата с ботом."
+        : "Откройте форму кнопкой «➕ Добавить операцию» внутри чата с ботом.";
       error.hidden = false;
       error.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }, 1800);
